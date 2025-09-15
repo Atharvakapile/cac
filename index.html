@@ -1,0 +1,759 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/x-icon" href="images/favicon.png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    animation: {
+                        'float': 'float 6s ease-in-out infinite',
+                    },
+                    keyframes: {
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-10px)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <title>Cyber Alchemists</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700&family=Poppins:wght@300;400;500;600;700&display=swap');
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            scroll-behavior: smooth;
+        }
+        
+        h1, h2, h3, h4, h5 {
+            font-family: 'Orbitron', sans-serif;
+        }
+        
+        .gradient-border {
+            position: relative;
+            border-radius: 0.5rem;
+            background: linear-gradient(0deg, #1f2937, #1f2937);
+            padding: 1px;
+        }
+        
+        .gradient-border::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            border-radius: 0.5rem;
+            padding: 2px;
+            background: linear-gradient(45deg, #7f65fb, #00ccff, #7f65fb);
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+            pointer-events: none;
+        }
+        
+        .cyber-glow {
+            text-shadow: 0 0 10px rgba(127, 101, 251, 0.7);
+        }
+        
+        .cyber-button {
+            background: linear-gradient(45deg, #7f65fb, #7154ff);
+            box-shadow: 0 4px 15px rgba(127, 101, 251, 0.4);
+            transition: all 0.3s ease;
+        }
+        
+        .cyber-button:hover {
+            background: linear-gradient(45deg, #7154ff, #7f65fb);
+            box-shadow: 0 6px 20px rgba(127, 101, 251, 0.6);
+            transform: translateY(-2px);
+        }
+        
+        .hero-bg {
+            background-image: url('./images/v1016-b-09.jpg');
+            background-attachment: fixed;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+        }
+        
+        @media (max-width: 768px) {
+            .hero-bg {
+                background-attachment: scroll;
+            }
+        }
+        
+        .hex-pattern {
+            background-image: 
+                linear-gradient(to right, rgba(127, 101, 251, 0.05) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(127, 101, 251, 0.05) 1px, transparent 1px);
+            background-size: 20px 20px;
+        }
+        
+        .typewriter {
+            overflow: hidden;
+            border-right: .15em solid #7f65fb;
+            white-space: nowrap;
+            margin: 0 auto;
+            animation: typing 3.5s steps(40, end), blink-caret .75s step-end infinite;
+        }
+        
+        @keyframes typing {
+            from { width: 0 }
+            to { width: 100% }
+        }
+        
+        @keyframes blink-caret {
+            from, to { border-color: transparent }
+            50% { border-color: #7f65fb; }
+        }
+
+/* Improved Mobile menu */
+#mobile-menu-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.7);
+    z-index: 40;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+}
+
+#mobile-menu-overlay.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+#mobile-menu {
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 80%;
+    max-width: 320px;
+    height: 100vh;
+    background: rgba(17, 24, 39, 0.98);
+    backdrop-filter: blur(10px);
+    z-index: 50;
+    transition: transform 0.3s ease-in-out;
+    box-shadow: -5px 0 25px rgba(0, 0, 0, 0.5);
+    padding: 80px 20px 20px;
+    overflow-y: auto;
+    transform: translateX(100%);
+}
+
+#mobile-menu.active {
+    transform: translateX(0);
+}
+
+#mobile-menu-close {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    color: white;
+    background: rgba(127, 101, 251, 0.2);
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+#mobile-menu-close:hover {
+    background: rgba(127, 101, 251, 0.4);
+}
+
+.mobile-menu-item {
+    display: block;
+    padding: 15px;
+    margin-bottom: 10px;
+    color: #e5e7eb;
+    font-size: 18px;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+    background: rgba(127, 101, 251, 0.1);
+}
+
+.mobile-menu-item:hover {
+    background: rgba(127, 101, 251, 0.3);
+    color: white;
+    transform: translateX(5px);
+}
+    </style>
+</head>
+<body class="bg-gray-900 text-white scroll-smooth hex-pattern">
+<!-- NAVIGATION -->
+<nav class="fixed top-0 inset-x-0 z-50 bg-black bg-opacity-90 backdrop-blur-sm shadow-lg">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="flex justify-between items-center h-16">
+      <!-- Logo -->
+      <div class="flex-shrink-0 flex items-center">
+        <img src="./images/cyber logo.png" alt="Logo" class="h-12 w-auto">
+      </div>
+
+      <!-- Desktop Menu -->
+      <div class="hidden md:flex space-x-8 items-center">
+        <a href="index.html" class="text-lg font-medium text-white hover:text-[#7f65fb] transition">Home</a>
+        <a href="about.html" class="text-lg font-medium text-white hover:text-[#7f65fb] transition">About</a>
+        <a href="contact.html" class="text-lg font-medium text-white hover:text-[#7f65fb] transition">Contact</a>
+        <a href="events.html" class="text-lg font-medium text-white hover:text-[#7f65fb] transition">Events</a>
+      </div>
+
+      <!-- Mobile Hamburger -->
+      <div class="md:hidden flex items-center">
+        <button id="menu-btn" class="text-gray-200 hover:text-[#7f65fb] focus:outline-none">
+          <svg class="h-8 w-8" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7" />
+          </svg>
+        </button>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<!-- Mobile Menu Overlay -->
+<div id="mobile-menu-overlay" class="fixed inset-0 bg-black bg-opacity-70 z-40 opacity-0 invisible transition-all duration-300 md:hidden"></div>
+
+<!-- Mobile Menu -->
+<div id="mobile-menu" class="fixed top-0 right-0 h-full w-80 bg-gray-900 bg-opacity-95 backdrop-blur-sm z-50 transform transition-transform duration-300 -translate-x-full md:hidden">
+  <div class="p-6 h-full flex flex-col">
+    <div class="flex justify-between items-center mb-10">
+      <button id="mobile-menu-close" class="text-gray-200 hover:text-[#7f65fb]">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+        </svg>
+      </button>
+    </div>
+    
+    <div class="flex-1 space-y-6">
+      <a href="index.html" class="mobile-menu-item">
+        <i class="fas fa-home mr-3 text-[#7f65fb]"></i> Home
+      </a>
+      <a href="about.html" class="mobile-menu-item">
+        <i class="fas fa-info-circle mr-3 text-[#7f65fb]"></i> About
+      </a>
+      <a href="contact.html" class="mobile-menu-item">
+        <i class="fas fa-envelope mr-3 text-[#7f65fb]"></i> Contact
+      </a>
+      <a href="events.html" class="mobile-menu-item">
+        <i class="fas fa-calendar-alt mr-3 text-[#7f65fb]"></i> Events
+      </a>
+    </div>
+    
+    <div class="pt-8 border-t border-gray-700">
+      <div class="flex justify-center space-x-4">
+        <a href="https://www.instagram.com/cac_adypu/" target="_blank" class="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center hover:bg-[#7f65fb] transition duration-300">
+          <i class="fab fa-instagram text-white"></i>
+        </a>
+        <a href="https://www.linkedin.com/company/cyber-alchemists-soe-ajeenkya-dy-patil-university/" target="_blank" class="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center hover:bg-[#7f65fb] transition duration-300">
+          <i class="fab fa-linkedin-in text-white"></i>
+        </a>
+        <a href="mailto:cyber.alchemists@adypu.edu.in" class="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center hover:bg-[#7f65fb] transition duration-300">
+          <i class="far fa-envelope text-white"></i>
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+
+    <!-- Hero Section -->
+<section class="pt-16 md:pt-20 hero-bg min-h-screen flex items-center justify-center relative overflow-hidden">
+    <div class="absolute inset-0 bg-black opacity-60"></div>
+    
+    <div class="relative text-center px-4 sm:px-6 md:px-8 z-10" data-aos="fade-up" data-aos-duration="1000">
+        
+        <!-- Badge -->
+        <div class="mb-6" data-aos="fade-down" data-aos-delay="300">
+            <div class="inline-block gradient-border p-1 rounded-full">
+                <div class="bg-gray-900 rounded-full px-3 sm:px-4 py-1">
+                    <span class="text-[#7f65fb] text-sm sm:text-base font-semibold">Transforming Digital Landscapes</span>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Heading -->
+        <h1 class="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6 cyber-glow leading-snug">
+            <span class="block">Building the Future,</span>
+            <span class="block mt-2 typewriter">One Byte at a Time</span>
+        </h1>
+        
+        <!-- Subtext -->
+        <p class="mt-4 text-base sm:text-lg md:text-xl lg:text-2xl text-gray-300 max-w-xl sm:max-w-2xl mx-auto px-2" 
+           data-aos="fade-up" data-aos-delay="500">
+            Join Cyber Alchemists Club, where knowledge and collaboration transform digital landscapes into secure and protected spaces.
+        </p>
+        
+        <!-- Buttons -->
+        <div class="mt-8 sm:mt-10 flex flex-col sm:flex-row justify-center gap-3 sm:gap-4 px-2" data-aos="fade-up" data-aos-delay="700">
+            <a href="https://forms.gle/HRt35P2jVo641rDq6" target="_blank" class="w-full sm:w-auto">
+                <button class="cyber-button w-full sm:w-auto px-6 sm:px-8 py-3 text-base sm:text-lg font-semibold text-white rounded-full">
+                    Join Now
+                </button>
+            </a>
+            <a href="#events" class="w-full sm:w-auto">
+                <button class="w-full sm:w-auto px-6 sm:px-8 py-3 border-2 border-[#7f65fb] text-base sm:text-lg font-semibold text-white rounded-full hover:bg-[#7f65fb] transition duration-300">
+                    Explore Events
+                </button>
+            </a>
+        </div>
+    </div>
+    
+    <!-- Scroll indicator -->
+    <div class="absolute bottom-6 sm:bottom-10 left-1/2 transform -translate-x-1/2 animate-bounce">
+        <a href="#events" class="text-white text-3xl sm:text-4xl">
+            <i class="fas fa-chevron-down"></i>
+        </a>
+    </div>
+</section>
+
+
+    <!-- Events Section -->
+    <section id="events" class="py-20 bg-gray-900">
+        <div class="max-w-7xl mx-auto px-4">
+            <h2 class="text-3xl md:text-4xl font-bold text-[#7f65fb] text-center mb-4 cyber-glow" data-aos="fade-up">All Events</h2>
+            <p class="text-gray-400 text-center mb-12 max-w-2xl mx-auto" data-aos="fade-up" data-aos-delay="200">
+                Discover our upcoming and past events where we explore the fascinating world of cybersecurity
+            </p>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <!-- Event Card 1 -->
+                <div class="gradient-border" data-aos="fade-right" data-aos-delay="300">
+                    <div class="bg-gray-800 rounded-lg p-6 h-full">
+                        <div class="flex justify-between items-start mb-4">
+                            <h3 class="text-2xl font-semibold text-[#7f65fb]">Networking Nexus</h3>
+                            <span class="bg-[#7f65fb] bg-opacity-20 text-[#7f65fb] text-sm px-3 py-1 rounded-full">Completed</span>
+                        </div>
+                        <p class="text-gray-300 mb-2 flex items-center">
+                            <i class="far fa-calendar-alt mr-2 text-[#7f65fb]"></i> January 1, 2025
+                        </p>
+                        <p class="text-gray-400 mb-6">Learned and explored the world of networking and its applications.</p>
+                        <a href="events.html" class="cyber-button inline-flex items-center px-4 py-2 rounded-full text-white">
+                            View Details
+                            <i class="fas fa-arrow-right ml-2"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- Event Card 2 -->
+                <div class="gradient-border" data-aos="fade-left" data-aos-delay="300">
+                    <div class="bg-gray-800 rounded-lg p-6 h-full">
+                        <div class="flex justify-between items-start mb-4">
+                            <h3 class="text-2xl font-semibold text-[#7f65fb]">Cyber Guard</h3>
+                            <span class="bg-[#7f65fb] bg-opacity-20 text-[#7f65fb] text-sm px-3 py-1 rounded-full">Completed</span>
+                        </div>
+                        <p class="text-gray-300 mb-2 flex items-center">
+                            <i class="far fa-calendar-alt mr-2 text-[#7f65fb]"></i> August 20, 2024
+                        </p>
+                        <p class="text-gray-400 mb-6">Introduction of the Club and the Scope of CyberSecurity & what club provides to the students.</p>
+                        <a href="events.html" class="cyber-button inline-flex items-center px-4 py-2 rounded-full text-white">
+                            View Details
+                            <i class="fas fa-arrow-right ml-2"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="text-center mt-12" data-aos="fade-up">
+  <a href="events.html"
+     class="relative inline-flex items-center px-8 py-3 text-lg font-semibold text-[#7f65fb] border-2 border-[#7f65fb] rounded-lg 
+            overflow-hidden transition-all duration-300 group">
+     
+    <!-- Glow Layer -->
+    <span class="absolute inset-0 bg-[#7f65fb] opacity-20 blur-xl group-hover:opacity-40 transition duration-500"></span>
+    
+    <!-- Text + Icon -->
+    <span class="relative flex items-center">
+      View All Events
+      <i class="fas fa-arrow-right ml-3 transform transition-transform duration-300 group-hover:translate-x-2"></i>
+    </span>
+    
+    <!-- Cyber Shine Effect -->
+    <span class="absolute inset-0 rounded-lg border-2 border-[#7f65fb] animate-pulse-slow"></span>
+  </a>
+</div>
+
+<style>
+  /* Custom animation for a subtle pulse */
+  @keyframes pulse-slow {
+    0%, 100% { opacity: 0.6; box-shadow: 0 0 8px #7f65fb, 0 0 20px #7f65fb; }
+    50% { opacity: 1; box-shadow: 0 0 15px #7f65fb, 0 0 35px #7f65fb; }
+  }
+  .animate-pulse-slow {
+    animation: pulse-slow 2s infinite;
+  }
+</style>
+
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section class="about py-20 bg-gray-900">
+        <div class="max-w-7xl mx-auto px-4">
+            <h2 class="text-3xl md:text-4xl font-bold text-[#7f65fb] text-center mb-4 cyber-glow" data-aos="fade-up">About Cyber Alchemists</h2>
+            <p class="text-lg md:text-xl text-gray-300 text-center mb-12 max-w-4xl mx-auto" data-aos="fade-up" data-aos-delay="200">
+                At Cyber Alchemists, we believe in the power of knowledge and collaboration. Just like ancient alchemists who transformed elements, we transform our members into skilled cybersecurity professionals, ready to protect the digital world.
+            </p>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="gradient-border" data-aos="fade-up" data-aos-delay="300">
+                    <div class="bg-gray-800 rounded-lg p-6 text-center h-full flex flex-col items-center">
+                        <div class="mb-4 w-16 h-16 rounded-full bg-[#7f65fb] bg-opacity-20 flex items-center justify-center">
+                            <i class="fas fa-book text-2xl text-[#7f65fb]"></i>
+                        </div>
+                        <h3 class="text-2xl font-semibold text-[#7f65fb] mb-4">Knowledge</h3>
+                        <p class="text-gray-400 flex-grow">We provide in-depth learning resources and hands-on experiences to equip our members with the latest cybersecurity skills.</p>
+                    </div>
+                </div>
+                
+                <div class="gradient-border" data-aos="fade-up" data-aos-delay="400">
+                    <div class="bg-gray-800 rounded-lg p-6 text-center h-full flex flex-col items-center">
+                        <div class="mb-4 w-16 h-16 rounded-full bg-[#7f65fb] bg-opacity-20 flex items-center justify-center">
+                            <i class="fas fa-users text-2xl text-[#7f65fb]"></i>
+                        </div>
+                        <h3 class="text-2xl font-semibold text-[#7f65fb] mb-4">Collaboration</h3>
+                        <p class="text-gray-400 flex-grow">We foster a community where members can collaborate, share ideas, and work together on exciting projects.</p>
+                    </div>
+                </div>
+                
+                <div class="gradient-border" data-aos="fade-up" data-aos-delay="500">
+                    <div class="bg-gray-800 rounded-lg p-6 text-center h-full flex flex-col items-center">
+                        <div class="mb-4 w-16 h-16 rounded-full bg-[#7f65fb] bg-opacity-20 flex items-center justify-center">
+                            <i class="fas fa-lightbulb text-2xl text-[#7f65fb]"></i>
+                        </div>
+                        <h3 class="text-2xl font-semibold text-[#7f65fb] mb-4">Innovation</h3>
+                        <p class="text-gray-400 flex-grow">We encourage creative problem-solving and innovation to tackle the challenges of the digital age.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+<!-- Team Section -->
+<section class="team py-20 bg-gray-900">
+  <div class="max-w-7xl mx-auto px-4">
+    <h2 class="text-3xl md:text-4xl font-bold text-[#7f65fb] text-center mb-4 cyber-glow" data-aos="fade-up">
+      Meet Our Heads
+    </h2>
+    <p class="text-gray-400 text-center mb-12 max-w-2xl mx-auto" data-aos="fade-up" data-aos-delay="200">
+      The passionate individuals leading our mission to transform cybersecurity education
+    </p>
+
+    <!-- Batch Tabs -->
+    <div class="flex justify-center mb-8 space-x-4">
+      <button id="batch2024" class="batch-btn px-4 py-2 rounded-full bg-gray-700 text-white font-semibold">
+        2024–2025
+      </button>
+      <button id="batch2025" class="batch-btn px-4 py-2 rounded-full bg-[#7f65fb] text-white font-semibold">
+        2025–2026
+      </button>
+    </div>
+
+    <!-- Batch 2024-2025 -->
+    <div id="batch2024Cards"
+      class="hidden opacity-0 transition-opacity duration-500 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-8">
+      <!-- Team Member Example -->
+      <div class="gradient-border" data-aos="zoom-in" data-aos-delay="300">
+        <div class="bg-gray-800 rounded-lg p-6 text-center">
+          <div class="mb-4 mx-auto w-32 h-32 rounded-full overflow-hidden border-2 border-[#7f65fb]">
+            <img src="./images/WhatsApp Image 2025-02-06 at 21.00.07_7fc3b96f.jpg" alt="Amol Kasture Sir"
+              class="w-full h-full object-cover">
+          </div>
+          <h3 class="text-xl font-semibold text-[#7f65fb] mb-2">Amol Kasture Sir</h3>
+          <p class="text-gray-300">Faculty Advisor</p>
+        </div>
+      </div>
+      <!-- Add 4 More Cards for 2024–2025 -->
+      <div class="gradient-border" data-aos="zoom-in" data-aos-delay="300">
+        <div class="bg-gray-800 rounded-lg p-6 text-center">
+          <div class="mb-4 mx-auto w-32 h-32 rounded-full overflow-hidden border-2 border-[#7f65fb]">
+            <img src="./images/Varad Khopkar Portrait.jpg" alt="Varad Khopkar"
+              class="w-full h-full object-cover">
+          </div>
+          <h3 class="text-xl font-semibold text-[#7f65fb] mb-2">Varad Khopkar</h3>
+          <p class="text-gray-300">President & Founder</p>
+        </div>
+      </div>
+
+            <div class="gradient-border" data-aos="zoom-in" data-aos-delay="300">
+        <div class="bg-gray-800 rounded-lg p-6 text-center">
+          <div class="mb-4 mx-auto w-32 h-32 rounded-full overflow-hidden border-2 border-[#7f65fb]">
+            <img src="./images/Mohan Supe.jpg" alt="Mohan Supe"
+              class="w-full h-full object-cover">
+          </div>
+          <h3 class="text-xl font-semibold text-[#7f65fb] mb-2">Mohan Supe</h3>
+          <p class="text-gray-300">Vice President</p>
+        </div>
+      </div>
+
+            <div class="gradient-border" data-aos="zoom-in" data-aos-delay="300">
+        <div class="bg-gray-800 rounded-lg p-6 text-center">
+          <div class="mb-4 mx-auto w-32 h-32 rounded-full overflow-hidden border-2 border-[#7f65fb]">
+            <img src="./images/Sanskruti Katte.jpg" alt="Sanskruti Katte"
+              class="w-full h-full object-cover">
+          </div>
+          <h3 class="text-xl font-semibold text-[#7f65fb] mb-2">Sanskruti Katte</h3>
+          <p class="text-gray-300">Secretary</p>
+        </div>
+      </div>
+
+            <div class="gradient-border" data-aos="zoom-in" data-aos-delay="300">
+        <div class="bg-gray-800 rounded-lg p-6 text-center">
+          <div class="mb-4 mx-auto w-32 h-32 rounded-full overflow-hidden border-2 border-[#7f65fb]">
+            <img src="./images/Hrishikesh photo.png" alt="Hrishikesh"
+              class="w-full h-full object-cover">
+          </div>
+          <h3 class="text-xl font-semibold text-[#7f65fb] mb-2">Hrishikesh</h3>
+          <p class="text-gray-300">Treasurer</p>
+        </div>
+      </div>
+      
+    </div>
+
+    <!-- Batch 2025-2026 (Default Active) -->
+    <div id="batch2025Cards"
+      class="opacity-100 transition-opacity duration-500 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-8">
+      <!-- Team Member Example -->
+      <div class="gradient-border" data-aos="zoom-in" data-aos-delay="300">
+        <div class="bg-gray-800 rounded-lg p-6 text-center">
+          <div class="mb-4 mx-auto w-32 h-32 rounded-full overflow-hidden border-2 border-[#7f65fb]">
+            <img src="./images/Aditya Sharma.jpg" alt="Aditya Sharma" class="w-full h-full object-cover">
+          </div>
+          <h3 class="text-xl font-semibold text-[#7f65fb] mb-2">Aditya Sharma</h3>
+          <p class="text-gray-300">President</p>
+        </div>
+      </div>
+      <!-- Add 4 More Cards for 2025–2026 -->
+
+      <div class="gradient-border" data-aos="zoom-in" data-aos-delay="300">
+        <div class="bg-gray-800 rounded-lg p-6 text-center">
+          <div class="mb-4 mx-auto w-32 h-32 rounded-full overflow-hidden border-2 border-[#7f65fb]">
+            <img src="./images/athu.jpg" alt="Atharva Kapile" class="w-full h-full object-cover">
+          </div>
+          <h3 class="text-xl font-semibold text-[#7f65fb] mb-2">Atharva Kapile</h3>
+          <p class="text-gray-300">Vice President</p>
+        </div>
+      </div>
+
+
+      <div class="gradient-border" data-aos="zoom-in" data-aos-delay="300">
+        <div class="bg-gray-800 rounded-lg p-6 text-center">
+          <div class="mb-4 mx-auto w-32 h-32 rounded-full overflow-hidden border-2 border-[#7f65fb]">
+            <img src="./images//SAVE_20240917_234546.jpg" alt="Aarya Dimble" class="w-full h-full object-cover">
+          </div>
+          <h3 class="text-xl font-semibold text-[#7f65fb] mb-2">Aarya Dimble</h3>
+          <p class="text-gray-300">Secretary</p>
+        </div>
+      </div>
+
+
+      <div class="gradient-border" data-aos="zoom-in" data-aos-delay="300">
+        <div class="bg-gray-800 rounded-lg p-6 text-center">
+          <div class="mb-4 mx-auto w-32 h-32 rounded-full overflow-hidden border-2 border-[#7f65fb]">
+            <img src="./images/Gayatri.jpg" alt="Gayatri gaware" class="w-full h-full object-cover">
+          </div>
+          <h3 class="text-xl font-semibold text-[#7f65fb] mb-2">Gayatri Gaware</h3>
+          <p class="text-gray-300">Joint Secretary</p>
+        </div>
+      </div>
+
+      <div class="gradient-border" data-aos="zoom-in" data-aos-delay="300">
+        <div class="bg-gray-800 rounded-lg p-6 text-center">
+          <div class="mb-4 mx-auto w-32 h-32 rounded-full overflow-hidden border-2 border-[#7f65fb]">
+            <img src="./images/Shruti Deokar.png" alt="Shruti Deokar" class="w-full h-full object-cover">
+          </div>
+          <h3 class="text-xl font-semibold text-[#7f65fb] mb-2">Shruti Deokar</h3>
+          <p class="text-gray-300">Treasurer</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+    <!-- CTA Section -->
+    <section class="py-20 bg-gradient-to-r from-gray-800 to-gray-900 relative overflow-hidden">
+        <div class="absolute inset-0 z-0">
+            <div class="absolute top-0 -left-4 w-72 h-72 bg-[#7f65fb] rounded-full mix-blend-soft-light filter blur-xl opacity-70 animate-float"></div>
+            <div class="absolute top-0 -right-4 w-72 h-72 bg-[#7154ff] rounded-full mix-blend-soft-light filter blur-xl opacity-70 animate-float animation-delay-2000"></div>
+            <div class="absolute -bottom-8 left-20 w-72 h-72 bg-[#7f65fb] rounded-full mix-blend-soft-light filter blur-xl opacity-70 animate-float animation-delay-4000"></div>
+        </div>
+        
+        <div class="max-w-4xl mx-auto px-4 text-center relative z-10" data-aos="zoom-in">
+            <h2 class="text-3xl md:text-4xl font-bold text-white mb-6">Ready to Transform Your Cybersecurity Journey?</h2>
+            <p class="text-lg text-gray-300 mb-10 max-w-2xl mx-auto">
+                Join our community of cyber alchemists and start building the future, one byte at a time.
+            </p>
+            <a href="https://forms.gle/HRt35P2jVo641rDq6" target="_blank">
+                <button class="cyber-button px-8 py-4 text-lg font-semibold text-white rounded-full">
+                    Become a Member Today
+                </button>
+            </a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 py-12 border-t border-gray-800">
+        <div class="max-w-7xl mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
+                <!-- Logo and Description -->
+                <div class="md:col-span-1">
+                    <img src="./images/cyber logo.png" alt="Logo" class="h-20 w-auto mb-4">
+                    <p class="text-gray-400 mb-4">
+                        Transforming digital landscapes into secure and protected spaces through knowledge and collaboration.
+                    </p>
+                    <div class="flex space-x-4">
+                        <a href="https://www.instagram.com/cac_adypu/" target="_blank" class="social-icon">
+                            <div class="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center hover:bg-[#7f65fb] transition duration-300">
+                                <i class="fab fa-instagram text-white"></i>
+                            </div>
+                        </a>
+                        <a href="https://www.linkedin.com/company/cyber-alchemists-soe-ajeenkya-dy-patil-university/" target="_blank" class="social-icon">
+                            <div class="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center hover:bg-[#7f65fb] transition duration-300">
+                                <i class="fab fa-linkedin-in text-white"></i>
+                            </div>
+                        </a>
+                        <a href="mailto:cyber.alchemists@adypu.edu.in" class="social-icon">
+                            <div class="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center hover:bg-[#7f65fb] transition duration-300">
+                                <i class="far fa-envelope text-white"></i>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- Quick Links -->
+                <div class="md:col-span-1">
+                    <h3 class="text-xl font-semibold text-white mb-4">Quick Links</h3>
+                    <ul class="space-y-2">
+                        <li><a href="index.html" class="text-gray-400 hover:text-[#7f65fb] transition duration-300">Home</a></li>
+                        <li><a href="about.html" class="text-gray-400 hover:text-[#7f65fb] transition duration-300">About</a></li>
+                        <li><a href="events.html" class="text-gray-400 hover:text-[#7f65fb] transition duration-300">Events</a></li>
+                        <li><a href="contact.html" class="text-gray-400 hover:text-[#7f65fb] transition duration-300">Contact</a></li>
+                    </ul>
+                </div>
+                
+                <!-- Contact Info -->
+                <div class="md:col-span-2">
+                    <h3 class="text-xl font-semibold text-white mb-4">Get In Touch</h3>
+                    <div class="space-y-3">
+                        <p class="text-gray-400 flex items-center">
+                            <i class="fas fa-map-marker-alt mr-3 text-[#7f65fb]"></i>
+                            Ajeenkya DY Patil University, Pune, Maharashtra
+                        </p>
+                        <p class="text-gray-400 flex items-center">
+                            <i class="far fa-envelope mr-3 text-[#7f65fb]"></i>
+                            cyber.alchemists@adypu.edu.in
+                        </p>
+                    </div>
+                    
+                
+                </div>
+            </div>
+            
+            <!-- Copyright -->
+            <div class="pt-8 border-t border-gray-800 text-center">
+                <p class="text-gray-400">&copy; 2024 Cyber Alchemists. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Go to Top Button -->
+    <button id="go-top" class="fixed bottom-8 right-8 bg-[#7f65fb] text-white p-3 rounded-full shadow-lg hover:bg-[#7154ff] transition-all duration-300 opacity-0 focus:outline-none z-50">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+
+<!-- Scripts -->
+<script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+<script>
+    // Initialize AOS
+    AOS.init({
+        duration: 800,
+        once: true,
+        offset: 100,
+    });
+    
+    // Mobile menu functionality - UPDATED FOR TRANSFORM
+    const menuBtn = document.getElementById('menu-btn');
+    const mobileMenu = document.getElementById('mobile-menu');
+    const mobileMenuOverlay = document.getElementById('mobile-menu-overlay');
+    const mobileMenuClose = document.getElementById('mobile-menu-close');
+    
+    function openMobileMenu() {
+        mobileMenu.classList.add('active');
+        mobileMenuOverlay.classList.add('active');
+        document.body.style.overflow = 'hidden';
+    }
+    
+    function closeMobileMenu() {
+        mobileMenu.classList.remove('active');
+        mobileMenuOverlay.classList.remove('active');
+        document.body.style.overflow = 'auto';
+    }
+    
+    menuBtn.addEventListener('click', openMobileMenu);
+    mobileMenuClose.addEventListener('click', closeMobileMenu);
+    mobileMenuOverlay.addEventListener('click', closeMobileMenu);
+    
+    // Close menu when clicking on links
+    document.querySelectorAll('.mobile-menu-item').forEach(item => {
+        item.addEventListener('click', closeMobileMenu);
+    });
+
+    // Go to top button
+    window.addEventListener('scroll', () => {
+        const goTopButton = document.getElementById('go-top');
+        if (window.scrollY > 300) {
+            goTopButton.classList.remove('opacity-0');
+            goTopButton.classList.add('opacity-100');
+        } else {
+            goTopButton.classList.remove('opacity-100');
+            goTopButton.classList.add('opacity-0');
+        }
+    });
+
+    document.getElementById('go-top').addEventListener('click', () => {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+    
+    // Team batch tabs functionality
+    const batch2024Btn = document.getElementById("batch2024");
+    const batch2025Btn = document.getElementById("batch2025");
+    const batch2024Cards = document.getElementById("batch2024Cards");
+    const batch2025Cards = document.getElementById("batch2025Cards");
+
+    function showBatch(batchToShow, batchToHide, btnShow, btnHide) {
+        batchToHide.classList.add("opacity-0");
+        setTimeout(() => {
+            batchToHide.classList.add("hidden");
+            batchToShow.classList.remove("hidden");
+            setTimeout(() => batchToShow.classList.remove("opacity-0"), 50);
+        }, 400);
+
+        btnShow.classList.add("bg-[#7f65fb]");
+        btnShow.classList.remove("bg-gray-700");
+        btnHide.classList.add("bg-gray-700");
+        btnHide.classList.remove("bg-[#7f65fb]");
+    }
+
+    if (batch2024Btn && batch2025Btn && batch2024Cards && batch2025Cards) {
+        batch2024Btn.addEventListener("click", () => {
+            showBatch(batch2024Cards, batch2025Cards, batch2024Btn, batch2025Btn);
+        });
+
+        batch2025Btn.addEventListener("click", () => {
+            showBatch(batch2025Cards, batch2024Cards, batch2025Btn, batch2024Btn);
+        });
+    }
+</script>
+</body>
+</html>

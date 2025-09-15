@@ -1,0 +1,541 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/x-icon" href="images/favicon.png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    animation: {
+                        'float': 'float 6s ease-in-out infinite',
+                    },
+                    keyframes: {
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-10px)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <title>Contact Us - Cyber Alchemists</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700&family=Poppins:wght@300;400;500;600;700&display=swap');
+        
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            scroll-behavior: smooth;
+            overflow-x: hidden;
+        }
+        
+        h1, h2, h3, h4, h5 {
+            font-family: 'Orbitron', sans-serif;
+        }
+        
+        .gradient-border {
+            position: relative;
+            border-radius: 0.5rem;
+            background: linear-gradient(0deg, #1f2937, #1f2937);
+            padding: 1px;
+        }
+        
+        .gradient-border::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            border-radius: 0.5rem;
+            padding: 2px;
+            background: linear-gradient(45deg, #7f65fb, #00ccff, #7f65fb);
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+            pointer-events: none;
+        }
+        
+        .cyber-glow {
+            text-shadow: 0 0 10px rgba(127, 101, 251, 0.7);
+        }
+        
+        .cyber-button {
+            background: linear-gradient(45deg, #7f65fb, #7154ff);
+            box-shadow: 0 4px 15px rgba(127, 101, 251, 0.4);
+            transition: all 0.3s ease;
+        }
+        
+        .cyber-button:hover {
+            background: linear-gradient(45deg, #7154ff, #7f65fb);
+            box-shadow: 0 6px 20px rgba(127, 101, 251, 0.6);
+            transform: translateY(-2px);
+        }
+        
+        .contact-bg {
+            background-image: url('https://images.unsplash.com/photo-1508614589041-895b88991e3e?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80'); 
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+            position: relative;
+        }
+
+        .contact-bg::after {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: rgba(0,0,0,0.55);
+            z-index: 0;
+        }
+
+        @media (max-width: 768px) {
+            .contact-bg {
+                background-attachment: scroll;
+            }
+        }
+        
+        .hex-pattern {
+            background-image: 
+                linear-gradient(to right, rgba(127, 101, 251, 0.05) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(127, 101, 251, 0.05) 1px, transparent 1px);
+            background-size: 20px 20px;
+        }
+        
+        /* Improved Mobile menu */
+        #mobile-menu-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            z-index: 40;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+        
+        #mobile-menu-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        #mobile-menu {
+            position: fixed;
+            top: 0;
+            right: -100%;
+            width: 80%;
+            max-width: 320px;
+            height: 100vh;
+            background: rgba(17, 24, 39, 0.98);
+            backdrop-filter: blur(10px);
+            z-index: 50;
+            transition: right 0.3s ease-in-out;
+            box-shadow: -5px 0 25px rgba(0, 0, 0, 0.5);
+            padding: 80px 20px 20px;
+            overflow-y: auto;
+        }
+        
+        #mobile-menu.active {
+            right: 0;
+        }
+        
+        #mobile-menu-close {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            color: white;
+            background: rgba(127, 101, 251, 0.2);
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        #mobile-menu-close:hover {
+            background: rgba(127, 101, 251, 0.4);
+        }
+        
+        .mobile-menu-item {
+            display: block;
+            padding: 15px;
+            margin-bottom: 10px;
+            color: #e5e7eb;
+            font-size: 18px;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            background: rgba(127, 101, 251, 0.1);
+        }
+        
+        .mobile-menu-item:hover {
+            background: rgba(127, 101, 251, 0.3);
+            color: white;
+            transform: translateX(5px);
+        }
+        
+        /* Prevent horizontal scroll */
+        .container-width {
+            max-width: 100%;
+            overflow-x: hidden;
+        }
+        
+        /* Map container */
+        .map-container {
+            position: relative;
+            overflow: hidden;
+            padding-top: 56.25%; /* 16:9 Aspect Ratio */
+        }
+        
+        .map-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: 0;
+            border-radius: 0.5rem;
+        }
+    </style>
+</head>
+<body class="bg-gray-900 text-white scroll-smooth hex-pattern container-width">
+    <!-- Navigation -->
+    <nav class="fixed w-full bg-black bg-opacity-90 backdrop-blur-sm z-50 shadow-lg py-2">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <!-- Logo Section -->
+                <div class="flex-shrink-0 flex items-center">
+                    <a href="index.html" class="flex items-center">
+                        <img src="images/cyber logo.png " alt="Logo" class="h-10 w-auto md:h-14">
+                    </a>
+                </div>
+                <!-- Desktop Menu -->
+                <div class="hidden md:flex space-x-8 items-center">
+                    <a href="index.html" class="text-lg font-medium hover:text-[#7f65fb] transition duration-300 relative group">
+                        Home
+                        <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-[#7f65fb] transition-all duration-300 group-hover:w-full"></span>
+                    </a>
+                    <a href="about.html" class="text-lg font-medium hover:text-[#7f65fb] transition duration-300 relative group">
+                        About
+                        <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-[#7f65fb] transition-all duration-300 group-hover:w-full"></span>
+                    </a>
+                    <a href="contact.html" class="text-lg font-medium hover:text-[#7f65fb] transition duration-300 relative group">
+                        Contact
+                        <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-[#7f65fb] transition-all duration-300 group-hover:w-full"></span>
+                    </a>
+                    <a href="events.html" class="text-lg font-medium hover:text-[#7f65fb] transition duration-300 relative group">
+                        Events
+                        <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-[#7f65fb] transition-all duration-300 group-hover:w-full"></span>
+                    </a>
+                </div>
+                <!-- Hamburger Icon -->
+                <div class="md:hidden flex items-center">
+                    <button id="menu-btn" class="text-gray-200 hover:text-[#7f65fb] focus:outline-none">
+                        <svg class="h-8 w-8" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7" />
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Mobile Menu Overlay -->
+        <div id="mobile-menu-overlay"></div>
+        
+        <!-- Mobile Menu -->
+        <div id="mobile-menu">
+            <div id="mobile-menu-close">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                </svg>
+            </div>
+            
+            <div class="mt-8">
+                <a href="index.html" class="mobile-menu-item">
+                    <i class="fas fa-home mr-3 text-[#7f65fb]"></i> Home
+                </a>
+                <a href="about.html" class="mobile-menu-item">
+                    <i class="fas fa-info-circle mr-3 text-[#7f65fb]"></i> About
+                </a>
+                <a href="contact.html" class="mobile-menu-item">
+                    <i class="fas fa-envelope mr-3 text-[#7f65fb]"></i> Contact
+                </a>
+                <a href="events.html" class="mobile-menu-item">
+                    <i class="fas fa-calendar-alt mr-3 text-[#7f65fb]"></i> Events
+                </a>
+            </div>
+            
+            <div class="mt-12 pt-8 border-t border-gray-700">
+                <div class="flex justify-center space-x-4">
+                    <a href="https://www.instagram.com/cac_adypu/" target="_blank" class="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center hover:bg-[#7f65fb] transition duration-300">
+                        <i class="fab fa-instagram text-white"></i>
+                    </a>
+                    <a href="https://www.linkedin.com/company/cyber-alchemists-soe-ajeenkya-dy-patil-university/" target="_blank" class="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center hover:bg-[#7f65fb] transition duration-300">
+                        <i class="fab fa-linkedin-in text-white"></i>
+                    </a>
+                    <a href="mailto:cyber.alchemists@adypu.edu.in" class="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center hover:bg-[#7f65fb] transition duration-300">
+                        <i class="far fa-envelope text-white"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="pt-20 contact-bg min-h-[40vh] flex items-center justify-center">
+        <div class="absolute inset-0 bg-black opacity-60"></div>
+        <div class="relative text-center px-4 md:px-8 z-10" data-aos="fade-up" data-aos-duration="1000">
+            <h1 class="text-3xl md:text-5xl lg:text-6xl font-bold text-white mb-6 cyber-glow">
+                Contact Us
+            </h1>
+            <p class="mt-4 text-base md:text-xl lg:text-2xl text-gray-300 max-w-2xl mx-auto" data-aos="fade-up" data-aos-delay="500">
+                Get in touch with the Cyber Alchemists team
+            </p>
+        </div>
+    </section>
+
+    <!-- Contact Us Section -->
+    <section class="py-16 md:py-20 bg-gray-900 px-4">
+        <div class="max-w-6xl mx-auto">
+            <h2 class="text-2xl md:text-4xl font-bold text-[#7f65fb] text-center mb-8 cyber-glow" data-aos="fade-up">Get In Touch</h2>
+            <p class="text-gray-400 text-center mb-12 max-w-2xl mx-auto text-sm md:text-base" data-aos="fade-up" data-aos-delay="200">
+                We would love to hear from you. Feel free to reach out with any questions or feedback.
+            </p>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <!-- Contact Details -->
+                <div class="gradient-border" data-aos="fade-right" data-aos-delay="300">
+                    <div class="bg-gray-800 rounded-lg p-6 h-full">
+                        <h3 class="text-xl md:text-2xl font-semibold text-[#7f65fb] mb-6 text-center">Contact Information</h3>
+                        
+                        <div class="space-y-6">
+                            <div class="flex items-start">
+                                <div class="flex-shrink-0 w-10 h-10 rounded-full bg-[#7f65fb] bg-opacity-20 flex items-center justify-center mr-4">
+                                    <i class="fas fa-map-marker-alt text-[#7f65fb]"></i>
+                                </div>
+                                <div>
+                                    <h4 class="text-lg font-medium text-gray-300 mb-1">Address</h4>
+                                    <p class="text-gray-400 text-sm md:text-base">DY Patil Knowledge City Road Via Lohgaon, Airport Rd, Charholi Budruk, Pune, Maharashtra 412105</p>
+                                </div>
+                            </div>
+                            
+                            <div class="flex items-start">
+                                <div class="flex-shrink-0 w-10 h-10 rounded-full bg-[#7f65fb] bg-opacity-20 flex items-center justify-center mr-4">
+                                    <i class="fas fa-envelope text-[#7f65fb]"></i>
+                                </div>
+                                <div>
+                                    <h4 class="text-lg font-medium text-gray-300 mb-1">Email</h4>
+                                    <p class="text-gray-400 text-sm md:text-base">cyber.alchemists@adypu.edu.in</p>
+                                </div>
+                            </div>
+                            
+                            <div class="pt-4">
+                                <h4 class="text-lg font-medium text-gray-300 mb-4 text-center">Follow Us</h4>
+                                <div class="flex justify-center space-x-6">
+                                    <a href="https://www.instagram.com/cac_adypu/" target="_blank" class="w-12 h-12 rounded-full bg-gray-700 flex items-center justify-center hover:bg-[#7f65fb] transition duration-300">
+                                        <i class="fab fa-instagram text-white text-xl"></i>
+                                    </a>
+                                    <a href="https://www.linkedin.com/company/cyber-alchemists-soe-ajeenkya-dy-patil-university/" target="_blank" class="w-12 h-12 rounded-full bg-gray-700 flex items-center justify-center hover:bg-[#7f65fb] transition duration-300">
+                                        <i class="fab fa-linkedin-in text-white text-xl"></i>
+                                    </a>
+                                    <a href="mailto:cyber.alchemists@adypu.edu.in" class="w-12 h-12 rounded-full bg-gray-700 flex items-center justify-center hover:bg-[#7f65fb] transition duration-300">
+                                        <i class="far fa-envelope text-white text-xl"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Map -->
+                <div class="gradient-border" data-aos="fade-left" data-aos-delay="300">
+                    <div class="bg-gray-800 rounded-lg p-6 h-full">
+                        <h3 class="text-xl md:text-2xl font-semibold text-[#7f65fb] mb-6 text-center">Find Us</h3>
+                        <div class="map-container">
+                            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3780.273257500966!2d73.914314175996!3d18.651882382477255!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bc2c71e08905091%3A0x51ca0d931361c1bc!2sAjeenkya%20DY%20Patil%20University!5e0!3m2!1sen!2sin!4v1727654321000!5m2!1sen!2sin" allowfullscreen="" loading="lazy"></iframe>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Contact Form -->
+            <div class="mt-16 gradient-border" data-aos="fade-up" data-aos-delay="400">
+                <div class="bg-gray-800 rounded-lg p-6 md:p-8">
+                    <h3 class="text-xl md:text-2xl font-semibold text-[#7f65fb] mb-6 text-center">Send Us a Message</h3>
+                    <form class="space-y-6">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div>
+                                <label for="name" class="block text-gray-300 mb-2">Your Name</label>
+                                <input type="text" id="name" class="w-full px-4 py-3 bg-gray-700 border border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#7f65fb] text-white" placeholder="Enter your name">
+                            </div>
+                            <div>
+                                <label for="email" class="block text-gray-300 mb-2">Your Email</label>
+                                <input type="email" id="email" class="w-full px-4 py-3 bg-gray-700 border border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#7f65fb] text-white" placeholder="Enter your email">
+                            </div>
+                        </div>
+                        <div>
+                            <label for="subject" class="block text-gray-300 mb-2">Subject</label>
+                            <input type="text" id="subject" class="w-full px-4 py-3 bg-gray-700 border border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#7f65fb] text-white" placeholder="Enter the subject">
+                        </div>
+                        <div>
+                            <label for="message" class="block text-gray-300 mb-2">Your Message</label>
+                            <textarea id="message" rows="5" class="w-full px-4 py-3 bg-gray-700 border border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#7f65fb] text-white" placeholder="Enter your message"></textarea>
+                        </div>
+                        <div class="text-center">
+                            <button type="submit" class="cyber-button px-8 py-3 text-base md:text-lg font-semibold text-white rounded-full">
+                                Send Message
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 py-12 border-t border-gray-800 px-4">
+        <div class="max-w-7xl mx-auto">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
+                <!-- Logo and Description -->
+                <div class="md:col-span-1">
+                    <img src="images/cyber logo.png" alt="Logo" class="h-16 w-auto mb-4">
+                    <p class="text-gray-400 mb-4 text-sm md:text-base">
+                        Transforming digital landscapes into secure and protected spaces through knowledge and collaboration.
+                    </p>
+                    <div class="flex space-x-4">
+                        <a href="https://www.instagram.com/cac_adypu/" target="_blank" class="social-icon">
+                            <div class="w-8 h-8 md:w-10 md:h-10 rounded-full bg-gray-800 flex items-center justify-center hover:bg-[#7f65fb] transition duration-300">
+                                <i class="fab fa-instagram text-white text-sm md:text-base"></i>
+                            </div>
+                        </a>
+                        <a href="https://www.linkedin.com/company/cyber-alchemists-soe-ajeenkya-dy-patil-university/" target="_blank" class="social-icon">
+                            <div class="w-8 h-8 md:w-10 md:h-10 rounded-full bg-gray-800 flex items-center justify-center hover:bg-[#7f65fb] transition duration-300">
+                                <i class="fab fa-linkedin-in text-white text-sm md:text-base"></i>
+                            </div>
+                        </a>
+                        <a href="mailto:cyber.alchemists@adypu.edu.in" class="social-icon">
+                            <div class="w-8 h-8 md:w-10 md:h-10 rounded-full bg-gray-800 flex items-center justify-center hover:bg-[#7f65fb] transition duration-300">
+                                <i class="far fa-envelope text-white text-sm md:text-base"></i>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- Quick Links -->
+                <div class="md:col-span-1">
+                    <h3 class="text-lg md:text-xl font-semibold text-white mb-4">Quick Links</h3>
+                    <ul class="space-y-2">
+                        <li><a href="index.html" class="text-gray-400 hover:text-[#7f65fb] transition duration-300 text-sm md:text-base">Home</a></li>
+                        <li><a href="about.html" class="text-gray-400 hover:text-[#7f65fb] transition duration-300 text-sm md:text-base">About</a></li>
+                        <li><a href="contact.html" class="text-gray-400 hover:text-[#7f65fb] transition duration-300 text-sm md:text-base">Contact</a></li>
+                        <li><a href="events.html" class="text-gray-400 hover:text-[#7f65fb] transition duration-300 text-sm md:text-base">Events</a></li>
+                    </ul>
+                </div>
+                
+                <!-- Contact Info -->
+                <div class="md:col-span-2">
+                    <h3 class="text-lg md:text-xl font-semibold text-white mb-4">Get In Touch</h3>
+                    <div class="space-y-3">
+                        <p class="text-gray-400 flex items-center text-sm md:text-base">
+                            <i class="fas fa-map-marker-alt mr-3 text-[#7f65fb]"></i>
+                            Ajeenkya DY Patil University, Pune, Maharashtra
+                        </p>
+                        <p class="text-gray-400 flex items-center text-sm md:text-base">
+                            <i class="far fa-envelope mr-3 text-[#7f65fb]"></i>
+                            cyber.alchemists@adypu.edu.in
+                        </p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Copyright -->
+            <div class="pt-8 border-t border-gray-800 text-center">
+                <p class="text-gray-400 text-sm md:text-base">&copy; 2024 Cyber Alchemists. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Go to Top Button -->
+    <button id="go-top" class="fixed bottom-8 right-8 bg-[#7f65fb] text-white p-3 rounded-full shadow-lg hover:bg-[#7154ff] transition-all duration-300 opacity-0 focus:outline-none z-50">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+
+    <!-- Scripts -->
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+    <script>
+        // Initialize AOS
+        AOS.init({
+            duration: 800,
+            once: true,
+            offset: 100,
+        });
+        
+        // Mobile menu functionality
+        const menuBtn = document.getElementById('menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const mobileMenuOverlay = document.getElementById('mobile-menu-overlay');
+        const mobileMenuClose = document.getElementById('mobile-menu-close');
+        
+        function openMobileMenu() {
+            mobileMenu.classList.add('active');
+            mobileMenuOverlay.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+        
+        function closeMobileMenu() {
+            mobileMenu.classList.remove('active');
+            mobileMenuOverlay.classList.remove('active');
+            document.body.style.overflow = 'auto';
+        }
+        
+        menuBtn.addEventListener('click', openMobileMenu);
+        mobileMenuClose.addEventListener('click', closeMobileMenu);
+        mobileMenuOverlay.addEventListener('click', closeMobileMenu);
+        
+        // Close menu when clicking on links
+        document.querySelectorAll('.mobile-menu-item').forEach(item => {
+            item.addEventListener('click', closeMobileMenu);
+        });
+
+        // Go to top button
+        window.addEventListener('scroll', () => {
+            const goTopButton = document.getElementById('go-top');
+            if (window.scrollY > 300) {
+                goTopButton.classList.remove('opacity-0');
+                goTopButton.classList.add('opacity-100');
+            } else {
+                goTopButton.classList.remove('opacity-100');
+                goTopButton.classList.add('opacity-0');
+            }
+        });
+
+        document.getElementById('go-top').addEventListener('click', () => {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+        
+        // Form submission handling
+        const contactForm = document.querySelector('form');
+        if (contactForm) {
+            contactForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                alert('Thank you for your message! We will get back to you soon.');
+                contactForm.reset();
+            });
+        }
+    </script>
+</body>
+</html>
